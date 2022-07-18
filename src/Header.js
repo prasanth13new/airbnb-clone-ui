@@ -5,6 +5,9 @@ import LanguageIcon from '@mui/icons-material/Language';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Avatar from '@mui/material/Avatar';
 import { Link } from 'react-router-dom';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 export function Header() {
     return (
@@ -26,7 +29,21 @@ export function Header() {
                 <p>Become a host</p>
                 <LanguageIcon />
                 <ExpandMoreIcon />
-                <Avatar />
+                {/* <Avatar /> */}
+
+                <PopupState variant="popover" popupId="demo-popup-menu">
+                    {(popupState) => (
+                        <React.Fragment>
+                            <Avatar {...bindTrigger(popupState)} />
+
+                            <Menu {...bindMenu(popupState)}>
+                                <MenuItem onClick={popupState.close}>Profile</MenuItem>
+                                <MenuItem onClick={popupState.close}>My account</MenuItem>
+                                <MenuItem onClick={popupState.close}>Logout</MenuItem>
+                            </Menu>
+                        </React.Fragment>
+                    )}
+                </PopupState>
             </div>
         </div>
     )
